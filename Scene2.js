@@ -4,13 +4,11 @@ class Scene2 extends Phaser.Scene {
     }
 
     create() {
-        //this.background = this.add.image(0, 0, "background")
         this.background = this.add.tileSprite(0, 0, config.width, config.height, "background")
         this.background.setOrigin(0, 0)
 
-        //this.ship1 = this.add.image(config.width / 2 - 50, config.height / 2, "ship")
         this.ship1 = this.add.sprite(config.width / 2 - 50, config.height / 2, "ship")
-        this.ship1.setScale(4)
+        this.ship1.setScale(2)
         this.ship1.flipY = true
         this.anims.create({
             key: "ship1_anim",
@@ -25,7 +23,6 @@ class Scene2 extends Phaser.Scene {
             repeat: 0,
             hideOnComplete: false
         })
-        console.log(this.ship1)
         this.ship1.play("ship1_anim")
         this.ship1.setInteractive()
         this.input.on("gameobjectdown", this.destroyShip, this)
@@ -39,7 +36,7 @@ class Scene2 extends Phaser.Scene {
     }
 
     update() {
-        // this.ship1.angle += 3
+        this.ship1.angle += 3
         this.moveShip(this.ship1, 1)
         this.moveShip(this.ship2, 2)
         this.moveShip(this.ship3, 3)
@@ -64,14 +61,9 @@ class Scene2 extends Phaser.Scene {
     destroyShip(pointer, gameObject) {
         gameObject.setTexture("exlosion") 
         gameObject.play("explode")
-        
     }
 
     restart() {
-        console.log(this.ship1)
-        console.log(this.ship2)
-        console.log(this.ship3)
-
         this.ship1.play("ship1_anim")
     }
 }
