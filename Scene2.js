@@ -1,3 +1,5 @@
+//import { Beam } from 'Beam.js'
+
 class Scene2 extends Phaser.Scene {
     constructor() {
         super("playGame") // scene name
@@ -45,6 +47,8 @@ class Scene2 extends Phaser.Scene {
 
         this.cursorKeys = this.input.keyboard.createCursorKeys()
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+        this.projectiles = this.add.group()
     }
 
     update() {
@@ -58,7 +62,12 @@ class Scene2 extends Phaser.Scene {
         this.movePlayerManager()
 
         if(Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-            console.log("Fire!")
+            this.shootBeam()
+        }
+        
+        for(let i = 0; i < this.projectiles.getChildren().length; i++) {
+            const beam = this.projectiles.getChildren()[i]
+            beam.update()
         }
     }
 
@@ -97,5 +106,10 @@ class Scene2 extends Phaser.Scene {
         } else if(this.cursorKeys.down.isDown) {
             this.player.setVelocityY(gameSettings.playerSpeed)
         }
+    }
+
+    shootBeam() {
+        //const beam = this.physics.add.sprite(this.player.x, this.player.y, "beam")
+        const beam = new Beam(this)
     }
 }
